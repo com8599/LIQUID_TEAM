@@ -10,21 +10,32 @@
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
                   android:orientation="vertical"
-        android:layout_weight="1"
-    >
+                  android:layout_weight="1">
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="80dp" app:srcCompat="@drawable/depart" android:id="@+id/imageView4"
                 android:layout_marginTop="20dp"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="80dp"
+                  android:layout_marginTop="20dp"
+                  android:text="마이크 버튼을 누르시면 음성인식이 시작됩니다."
+                  android:textSize="30dp"/>
+
         <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="120dp" app:srcCompat="@drawable/mic" android:id="@+id/imageView"
-                android:layout_marginTop="100dp"/>
+                android:layout_height="120dp" app:srcCompat="@drawable/mic" android:id="@+id/imageViewmic"
+                android:layout_marginTop="20dp"/>
+        <TextView   android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView2"
+                    android:text=""
+                    android:textSize="30dp"/>
     </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent" android:layout_weight="1"
                 android:layout_height="wrap_content" android:layout_marginTop="20dp">
+
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@drawable/back" android:id="@+id/backImage_depart"

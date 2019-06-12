@@ -1,12 +1,16 @@
 package com.example.team
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
+
     public var ArrSub = mutableListOf<SubwayName>()
     var stringjson = """
         {
@@ -731,10 +735,18 @@ class MainActivity : AppCompatActivity() {
 ]
 }
     """.trimIndent()
+
+    var PERMISSION= 1 // 퍼미션 코드
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 음성 인식 오디오 퍼미션 묻기
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET,
+                Manifest.permission.RECORD_AUDIO), PERMISSION)
+        }
         micButton.setOnClickListener{
             val departIntent = Intent(this, departActivity::class.java)
             startActivity(departIntent)
