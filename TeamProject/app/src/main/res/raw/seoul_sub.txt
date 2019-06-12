@@ -1,15 +1,4 @@
-package com.example.team
-
-import android.content.Intent
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONObject
-
-class MainActivity : AppCompatActivity() {
-    public var ArrSub = mutableListOf<SubwayName>()
-    var stringjson = """
-        {
+{
 "DESCRIPTION" : {"STATION_NM":"전철역명","STATION_CD":"전철역코드","LINE_NUM":"호선","FR_CODE":"외부코드"},
 "DATA" : [
 {"line_num":"01호선","station_cd":"0151","station_nm":"시청","fr_code":"132"},
@@ -729,38 +718,4 @@ class MainActivity : AppCompatActivity() {
 {"line_num":"경의선","station_cd":"101C","station_nm":"회기","fr_code":"K118"},
 {"line_num":"경의선","station_cd":"1265","station_nm":"가좌","fr_code":"K315"}
 ]
-}
-    """.trimIndent()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        micButton.setOnClickListener{
-            val departIntent = Intent(this, departActivity::class.java)
-            startActivity(departIntent)
-        }
-
-        searchButton.setOnClickListener {
-            val searchIntent = Intent(this, RouteResultActivity::class.java)
-            val str = Response(stringjson)
-            for(i in 0..str.data!!.size-1){
-                var k = str.data[i]
-                ArrSub.add(SubwayName(k.line_num, k.station_cd, k.station_nm, k.fr_code))
-            }
-            startActivity(searchIntent)
-        }
-    }
-    class Response(json: String) : JSONObject(json) {
-        val type: String? = this.optString("DESCRIPTION")
-        val data = this.optJSONArray("DATA")
-            ?.let { 0.until(it.length()).map { i -> it.optJSONObject(i) } } // returns an array of JSONObject
-            ?.map { Foo(it.toString()) } // transforms each JSONObject of the array into Foo
-    }
-
-    class Foo(json: String) : JSONObject(json) {
-        val line_num = this.optString("line_num")
-        val station_cd = this.optString("station_cd")
-        val station_nm = this.optString("station_nm")
-        val fr_code = this.optString("fr_code")
-    }
 }
