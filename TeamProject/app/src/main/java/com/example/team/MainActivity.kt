@@ -736,6 +736,10 @@ class MainActivity : AppCompatActivity() {
 }
     """.trimIndent()
 
+
+
+    var subNameStart = ""
+    var subNameDepart = ""
     var PERMISSION= 1 // 퍼미션 코드
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -747,6 +751,24 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET,
                 Manifest.permission.RECORD_AUDIO), PERMISSION)
         }
+
+        if(intent.getStringExtra("subname")!=null){
+            val strintent = intent.getStringExtra("subname")
+            var strArrintent = strintent.split(":")
+            if(strArrintent[0].equals("0")){
+                subNameStart = strArrintent[1]
+            }else if(strArrintent[0].equals("1")){
+                subNameDepart = strArrintent[1]
+            }
+        }
+        if(!subNameStart.equals("")){
+            departText.hint = subNameStart
+        }
+        if(!subNameDepart.equals("")){
+            arriveText.hint = subNameDepart
+        }
+
+
         micButton.setOnClickListener{
             val departIntent = Intent(this, departActivity::class.java)
             startActivity(departIntent)
@@ -760,6 +782,16 @@ class MainActivity : AppCompatActivity() {
                 ArrSub.add(SubwayName(k.line_num, k.station_cd, k.station_nm, k.fr_code))
             }
             startActivity(searchIntent)
+        }
+        searchButton_start.setOnClickListener {
+            val start_sub = Intent(this, SubNameSearch::class.java)
+            start_sub.putExtra("name", "0+"+departText.text)
+            startActivity(start_sub)
+        }
+        searchButton_depart.setOnClickListener {
+            val depart_sub = Intent(this, SubNameSearch::class.java)
+            depart_sub.putExtra("name", "1+"+arriveText.text)
+            startActivity(depart_sub)
         }
     }
     class Response(json: String) : JSONObject(json) {
