@@ -23,7 +23,7 @@ class SubNameSearch:AppCompatActivity() {
         readFile()
     }
     fun readFile() {
-        var strIon = "http://openAPI.seoul.go.kr:8088/764f706b57636f6d313232684d41795a/xml/SearchInfoBySubwayNameService/1/200"
+        var strIon = "http://openAPI.seoul.go.kr:8088/764f706b57636f6d313232684d41795a/xml/SearchInfoBySubwayNameService/1/1000"
         Ion.with( this ).load( strIon.trim())
             .asInputStream()
             .setCallback { e, result ->
