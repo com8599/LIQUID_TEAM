@@ -35,6 +35,7 @@ class SubNameAdapter(var items:List<SubwayName>, val clickListener: (SubwayName)
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {    //data, View connection
 
+        (p0 as ViewHolder).bind(items[p1], clickListener)
         p0.name.text = items.get(p1).station_nm
         when(items.get(p1).line_num){
             "01호선"->p0.icon.setImageResource(R.drawable.circle1)

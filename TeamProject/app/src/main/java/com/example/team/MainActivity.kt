@@ -737,37 +737,33 @@ class MainActivity : AppCompatActivity() {
     """.trimIndent()
 
 
-
-    var subNameStart = ""
-    var subNameDepart = ""
     var PERMISSION= 1 // 퍼미션 코드
+    lateinit var arrList:ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        arrList = ArrayList()
+        arrList.add("")
+        arrList.add("")
+        arrList.add("")
+        if(intent.getStringArrayListExtra("subname") != null){
+            arrList = intent.getStringArrayListExtra("subname")
+
+            if(arrList[0].equals("0")){
+                departText.hint = arrList[1]
+            }
+            if(arrList[0].equals("1")){
+                departText.hint = arrList[1]
+                arriveText.hint = arrList[2]
+            }
+        }
         // 음성 인식 오디오 퍼미션 묻기
         if (Build.VERSION.SDK_INT >= 23) {
 
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.INTERNET,
                 Manifest.permission.RECORD_AUDIO), PERMISSION)
         }
-
-        if(intent.getStringExtra("subname")!=null){
-            val strintent = intent.getStringExtra("subname")
-            var strArrintent = strintent.split(":")
-            if(strArrintent[0].equals("0")){
-                subNameStart = strArrintent[1]
-            }else if(strArrintent[0].equals("1")){
-                subNameDepart = strArrintent[1]
-            }
-        }
-        if(!subNameStart.equals("")){
-            departText.hint = subNameStart
-        }
-        if(!subNameDepart.equals("")){
-            arriveText.hint = subNameDepart
-        }
-
 
         micButton.setOnClickListener{
             val departIntent = Intent(this, departActivity::class.java)
@@ -785,12 +781,16 @@ class MainActivity : AppCompatActivity() {
         }
         searchButton_start.setOnClickListener {
             val start_sub = Intent(this, SubNameSearch::class.java)
-            start_sub.putExtra("name", "0+"+departText.text)
+            arrList[0]= "0"
+            arrList[1] = departText.text.toString()
+            start_sub.putExtra("name", arrList)
             startActivity(start_sub)
         }
         searchButton_depart.setOnClickListener {
             val depart_sub = Intent(this, SubNameSearch::class.java)
-            depart_sub.putExtra("name", "1+"+arriveText.text)
+            arrList[0]= "1"
+            arrList[2] = arriveText.text.toString()
+            depart_sub.putExtra("name", arrList)
             startActivity(depart_sub)
         }
     }
