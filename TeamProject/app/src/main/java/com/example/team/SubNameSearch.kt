@@ -15,11 +15,11 @@ import java.io.InputStream
 class SubNameSearch:AppCompatActivity() {
     var keySet = mutableListOf<String>()
     var place_info: HashMap<String, SubwayName> = HashMap()
-    lateinit var textIntent:ArrayList<String>
+    lateinit var textIntent:List<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_sub)
-        textIntent = intent.getStringArrayListExtra("name")
+        textIntent = intent.getStringExtra("name").split("+")
         readFile()
     }
     fun readFile() {
@@ -124,12 +124,8 @@ class SubNameSearch:AppCompatActivity() {
         var k = 0
         for(i in 0..place_info.size-1){
             val sublist = place_info.get(keySet.get(i))!!
-            if(sublist.station_nm.trim().equals(textIntent[1])&&textIntent[0].equals("0")){
+            if(sublist.station_nm.trim().equals(textIntent[1])){
                 Log.e("text", textIntent[1])
-                infoArr.add(k++, sublist)
-            }
-            if(sublist.station_nm.trim().equals(textIntent[2])&&textIntent[0].equals("1")){
-                Log.e("text", textIntent[2])
                 infoArr.add(k++, sublist)
             }
         }
@@ -139,9 +135,7 @@ class SubNameSearch:AppCompatActivity() {
     }
     fun partItemClicked(partItem : SubwayName) {
         val searchIntent = Intent(this, MainActivity::class.java)
-        Log.e("subname : ", textIntent[0]+":"+partItem.line_num+"-"+partItem.station_nm)
-        textIntent[textIntent[0].toInt()+1] = partItem.line_num+"-"+partItem.station_nm
-        searchIntent.putExtra("subname", textIntent)
+        searchIntent.putExtra("subname", textIntent[0]+":"+partItem.line_num+"-"+partItem.station_nm)
         startActivity(searchIntent)
     }
 }
