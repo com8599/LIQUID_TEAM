@@ -7,10 +7,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".Guide2Activity">
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/guide" android:id="@+id/imageView7"
-                android:layout_marginTop="20dp"/>
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="80dp" app:srcCompat="@drawable/guide" android:id="@+id/imageView7"
+            android:layout_marginTop="20dp"/>
     <ImageView android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_weight="1"
     />
