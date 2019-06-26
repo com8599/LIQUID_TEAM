@@ -12,10 +12,10 @@
             android:layout_width="match_parent"
             android:layout_height="80dp" app:srcCompat="@drawable/guide" android:id="@+id/imageView5"
             android:layout_marginTop="20dp"/>
-        <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:layout_weight="1"
-        />
-        <!--<LinearLayout-->
+    <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/video_guide" android:layout_weight="1"/>
+    <!--<LinearLayout-->
                 <!--android:orientation="horizontal"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content">-->
